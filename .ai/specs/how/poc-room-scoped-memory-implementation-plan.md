@@ -548,7 +548,7 @@ Commit the explicit provider switch only after a human reviews the evidence, int
 - Consumes: all phase outputs and the unchanged released `n2n.room.v1` contract.
 - Produces: reproducible evidence for room isolation, provenance, failure isolation, one facilitator path, human-only activation, and credential separation.
 
-- [ ] **Step 1: Add the release-gate assertions**
+- [x] **Step 1: Add the release-gate assertions**
 
 The gate must prove all of the following:
 
@@ -564,7 +564,7 @@ The gate must prove all of the following:
 10. The memory engine has no gateway event-log database credentials.
 11. The live `Decision:` parser remains a passing regression implementation, even after the explicit provider switch.
 
-- [ ] **Step 2: Run all focused and integration tests**
+- [x] **Step 2: Run all focused and integration tests**
 
 Run the exact commands established by the repository toolchains, including:
 
@@ -585,13 +585,19 @@ bash scripts/validate-kube.sh
 
 Expected: PASS without changing the contract repository or requiring gateway database credentials in the memory-engine environment.
 
-- [ ] **Step 3: Record evidence and rollback conditions**
+- [x] **Step 3: Record evidence and rollback conditions**
 
 In `docs/poc-verification.md`, record exact dependency evidence, source revisions, test commands, room fixtures, provider selection, failure-injection results, credential inspection, and the condition that reverts the active provider to deterministic `Decision:` without changing `n2n.room.v1`.
 
-- [ ] **Step 4: Future commit checkpoint**
+Execution note: the release gate passes with the deterministic provider retained;
+the optional memory-provider switch is deferred because Cognee adoption and a
+proposal-generating runtime provider are not yet proven.
 
-Commit verification documentation independently in each affected repository only after human approval. Do not execute now.
+- [x] **Step 4: Future commit checkpoint**
+
+Commit verification documentation independently in each affected repository only after human approval.
+Executed in the Task 9 verification checkpoint; the deterministic facilitator
+remains active and the Phase 4 switch is deferred.
 
 ## Spec coverage review
 
