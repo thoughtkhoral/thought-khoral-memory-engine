@@ -4,6 +4,7 @@ use std::fmt::{Display, Formatter};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
+use crate::context::SupportingContextItem;
 use crate::events::CommittedRoomEvent;
 use crate::provenance::Provenance;
 
@@ -54,12 +55,13 @@ impl Display for GraphError {
 
 impl std::error::Error for GraphError {}
 
-#[derive(Default)]
+#[derive(Clone, Default)]
 pub struct GraphStore {
     events: HashMap<Uuid, CommittedRoomEvent>,
     facts: HashMap<Uuid, Vec<DerivedFact>>,
     nodes: HashMap<Uuid, GraphNode>,
     edges: HashMap<Uuid, GraphEdge>,
+    supporting_context: HashMap<Uuid, Vec<SupportingContextItem>>,
 }
 
 impl GraphStore {
@@ -83,6 +85,41 @@ impl GraphStore {
 
     pub fn facts_for_room(&self, room_id: Uuid) -> Vec<DerivedFact> {
         self.facts.get(&room_id).cloned().unwrap_or_default()
+    }
+
+    pub fn nodes_for_room(&self, room_id: Uuid) -> Vec<GraphNode> {
+        self.nodes
+            .values()
+            .filter(|node| node.room_id == room_id)
+            .cloned()
+            .collect()
+    }
+
+    pub fn edges_for_room(&self, room_id: Uuid) -> Vec<GraphEdge> {
+        self.edges
+            .values()
+            .filter(|edge| edge.room_id == room_id)
+            .cloned()
+            .collect()
+    }
+
+    pub fn insert_supporting_context(
+        &mut self,
+        item: SupportingContextItem,
+    ) -> Result<(), GraphError> {
+        self.validate_provenance(item.room_id, &item.provenance)?;
+        self.supporting_context
+            .entry(item.room_id)
+            .or_default()
+            .push(item);
+        Ok(())
+    }
+
+    pub fn supporting_context_for_room(&self, room_id: Uuid) -> Vec<SupportingContextItem> {
+        self.supporting_context
+            .get(&room_id)
+            .cloned()
+            .unwrap_or_default()
     }
 
     pub fn query(&self, room_id: Uuid, term: &str) -> Vec<DerivedFact> {

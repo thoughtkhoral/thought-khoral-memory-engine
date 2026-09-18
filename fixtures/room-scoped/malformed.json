@@ -1,4 +1,17 @@
 {
-  "roomId": "00000000-0000-0000-0000-000000000001",
-  "events": [{"eventId": null, "text": 42}]
+  "event": {
+    "event_id": "00000000-0000-0000-0000-00000000000c",
+    "room_id": "00000000-0000-0000-0000-000000000001",
+    "event_type": "room.message",
+    "occurred_at": "2026-09-16T12:00:00Z",
+    "payload": {
+      "text": "malformed extraction",
+      "extraction": {
+        "facts": [{"room_id": "00000000-0000-0000-0000-000000000001", "content": 42}],
+        "nodes": [],
+        "edges": [],
+        "supporting_context": []
+      }
+    }
+  }
 }

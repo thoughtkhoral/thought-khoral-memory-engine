@@ -1,6 +1,66 @@
 {
-  "roomId": "00000000-0000-0000-0000-000000000001",
-  "events": [
-    {"eventId": "00000000-0000-0000-0000-00000000000a", "text": "deployment is blue"}
-  ]
+  "event": {
+    "event_id": "00000000-0000-0000-0000-00000000000a",
+    "room_id": "00000000-0000-0000-0000-000000000001",
+    "event_type": "room.message",
+    "occurred_at": "2026-09-16T12:00:00Z",
+    "payload": {
+      "text": "deployment is blue",
+      "extraction": {
+        "facts": [
+          {
+            "room_id": "00000000-0000-0000-0000-000000000001",
+            "content": "deployment is blue",
+            "provenance": {
+              "source_event_ids": ["00000000-0000-0000-0000-00000000000a"],
+              "source_timestamps": ["2026-09-16T12:00:00Z"]
+            }
+          }
+        ],
+        "nodes": [
+          {
+            "node_id": "00000000-0000-0000-0000-0000000000aa",
+            "room_id": "00000000-0000-0000-0000-000000000001",
+            "label": "deployment",
+            "provenance": {
+              "source_event_ids": ["00000000-0000-0000-0000-00000000000a"],
+              "source_timestamps": ["2026-09-16T12:00:00Z"]
+            }
+          },
+          {
+            "node_id": "00000000-0000-0000-0000-0000000000ab",
+            "room_id": "00000000-0000-0000-0000-000000000001",
+            "label": "blue",
+            "provenance": {
+              "source_event_ids": ["00000000-0000-0000-0000-00000000000a"],
+              "source_timestamps": ["2026-09-16T12:00:00Z"]
+            }
+          }
+        ],
+        "edges": [
+          {
+            "edge_id": "00000000-0000-0000-0000-0000000000ac",
+            "room_id": "00000000-0000-0000-0000-000000000001",
+            "from_node": "00000000-0000-0000-0000-0000000000aa",
+            "to_node": "00000000-0000-0000-0000-0000000000ab",
+            "relation": "uses",
+            "provenance": {
+              "source_event_ids": ["00000000-0000-0000-0000-00000000000a"],
+              "source_timestamps": ["2026-09-16T12:00:00Z"]
+            }
+          }
+        ],
+        "supporting_context": [
+          {
+            "room_id": "00000000-0000-0000-0000-000000000001",
+            "content": {"fact": "blue is available"},
+            "provenance": {
+              "source_event_ids": ["00000000-0000-0000-0000-00000000000a"],
+              "source_timestamps": ["2026-09-16T12:00:00Z"]
+            }
+          }
+        ]
+      }
+    }
+  }
 }

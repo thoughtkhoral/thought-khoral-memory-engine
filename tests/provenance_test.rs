@@ -56,3 +56,22 @@ fn a_source_event_from_another_room_is_rejected() {
     assert!(result.is_err());
     assert!(graph.facts_for_room(source.room_id).is_empty());
 }
+
+#[test]
+fn a_source_timestamp_that_does_not_match_the_event_is_rejected() {
+    let source = event(10, 1);
+    let mut graph = GraphStore::new();
+    graph.record_event(source.clone()).unwrap();
+
+    let result = graph.insert_fact(DerivedFact {
+        room_id: source.room_id,
+        content: "wrong timestamp".to_owned(),
+        provenance: Provenance {
+            source_event_ids: vec![source.event_id],
+            source_timestamps: vec![source.occurred_at + chrono::Duration::minutes(1)],
+        },
+    });
+
+    assert!(result.is_err());
+    assert!(graph.facts_for_room(source.room_id).is_empty());
+}

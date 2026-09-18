@@ -1,6 +1,26 @@
 {
-  "roomId": "00000000-0000-0000-0000-000000000002",
-  "events": [
-    {"eventId": "00000000-0000-0000-0000-00000000000b", "text": "deployment is green"}
-  ]
+  "event": {
+    "event_id": "00000000-0000-0000-0000-00000000000b",
+    "room_id": "00000000-0000-0000-0000-000000000002",
+    "event_type": "room.message",
+    "occurred_at": "2026-09-16T12:00:00Z",
+    "payload": {
+      "text": "deployment is green",
+      "extraction": {
+        "facts": [
+          {
+            "room_id": "00000000-0000-0000-0000-000000000002",
+            "content": "deployment is green",
+            "provenance": {
+              "source_event_ids": ["00000000-0000-0000-0000-00000000000b"],
+              "source_timestamps": ["2026-09-16T12:00:00Z"]
+            }
+          }
+        ],
+        "nodes": [],
+        "edges": [],
+        "supporting_context": []
+      }
+    }
+  }
 }

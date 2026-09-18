@@ -1,20 +1,24 @@
 # ThoughtKhoral memory engine
 
-`thought-khoral-memory-engine` is reserved for the future collective-memory,
-provenance, and temporal-lineage capability.
+`thought-khoral-memory-engine` is the specification home for collective-memory,
+provenance, and temporal lineage. The first planned capability is room-scoped
+POC memory: a room remains one conversation, and Cognee is a later
+implementation of the gateway facilitator port rather than a second proposer.
 
 ## Status
 
-Specification-only / incubating. This repository currently contains no runtime
-implementation, package, deployment artifact, or installation procedure.
+Phase 3 mediated-ingestion proof / incubating. This repository contains the
+backend-neutral in-memory graph, provenance, context model, and a private
+authenticated HTTP ingestion process. It has no Cognee integration, durable
+storage, or production deployment procedure.
 
 Read the [local specification index](.ai/specs/README.md), the
-[deferred capability specification](.ai/specs/what/deferred-memory-engine.md),
+[POC room-scoped memory specification](.ai/specs/what/poc-room-scoped-memory.md),
 and the [ThoughtKhoral repository map](https://github.com/thoughtkhoral/thought-khoral/blob/main/docs/repository-map.md).
 
 ## Contributing
 
 Use an issue to propose scope, contracts, security boundaries, or evidence for
-an implementation plan. Runtime work begins only after an approved What, How,
-and implementation plan. See the
+an implementation plan. Further runtime work remains task-gated by that
+approved implementation plan. See the
 [organization contribution guide](https://github.com/thoughtkhoral/.github/blob/main/CONTRIBUTING.md).

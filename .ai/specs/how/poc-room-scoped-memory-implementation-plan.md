@@ -272,7 +272,7 @@ Run: `cargo fmt --check && cargo test --test room_isolation_test --test provenan
 
 Expected: PASS, with no new `conversationId`, project identifier, or `n2n.room.v1` method/field in the source or fixtures.
 
-- [ ] **Step 5: Future commit checkpoint**
+- [x] **Step 5: Future commit checkpoint**
 
 Commit the backend-neutral graph/provenance model and fixtures only after human approval of the task. Do not execute now.
 
@@ -289,17 +289,17 @@ Commit the backend-neutral graph/provenance model and fixtures only after human 
 - Consumes: `CommittedRoomEvent`, `RoomScope`, and the room graph repository from Task 3.
 - Produces: non-authoritative graph facts/edges and supporting-context items only; `propose` remains disabled and no `decision.proposed` or transition event is emitted.
 
-- [ ] **Step 1: Write failing graph-only extraction tests**
+- [x] **Step 1: Write failing graph-only extraction tests**
 
 Tests must feed a committed message fixture for room A, verify graph facts and edges cite that event and room, feed room B, and verify no room A query returns room B data. Add malformed extraction output, missing provenance, cross-room source IDs, backend timeout, and backend error cases; each must return a structured error or dropped result without an active decision write.
 
-- [ ] **Step 2: Run the focused tests**
+- [x] **Step 2: Run the focused tests**
 
 Run: `cargo test --test extraction_failure_test --test provenance_test --test room_isolation_test`
 
 Expected: FAIL until the extractor and backend adapter exist.
 
-- [ ] **Step 3: Implement graph-only extraction**
+- [x] **Step 3: Implement graph-only extraction**
 
 Create a backend-neutral extractor boundary. If Cognee-RS was approved, implement its adapter only inside the memory-engine process and pass an explicit `RoomScope` plus source-event provenance on every call. If it was not approved, use a deterministic fixture backend and mark the runtime provider unavailable; do not add a substitute package or simulate live Cognee adoption.
 
@@ -308,13 +308,13 @@ but it must never treat those outputs as decision specifications, return drafts,
 call `decision.transition`, write gateway active context, or use gateway
 event-log credentials.
 
-- [ ] **Step 4: Run failure-isolation and room-partition tests**
+- [x] **Step 4: Run failure-isolation and room-partition tests**
 
 Run: `cargo fmt --check && cargo test --test extraction_failure_test --test provenance_test --test room_isolation_test`
 
 Expected: PASS; extraction failures are observable as structured memory errors while the graph remains partitioned and no active decision is created.
 
-- [ ] **Step 5: Prove the live facilitator remains unchanged**
+- [x] **Step 5: Prove the live facilitator remains unchanged**
 
 Run the existing gateway facilitator regression suite from the gateway repository:
 
@@ -324,6 +324,9 @@ cargo test --test facilitator_test
 ```
 
 Expected: `Decision:` still produces its deterministic draft from a persisted `message.created` event, ordinary messages produce no draft, and no memory-engine process is required for the test.
+
+Execution note: the complete facilitator regression passes when run with the
+migrated PostgreSQL integration database; no memory-engine process is required.
 
 - [ ] **Step 6: Future commit checkpoint**
 
@@ -344,15 +347,15 @@ Commit graph-only extraction and its fixtures separately from any later port swi
 - Consumes: the How-approved option of gateway-mediated forwarding of committed events to the facilitator-port implementation.
 - Produces: one selected private transport and an explicit rejection of racing authenticated-agent ingestion and direct gateway database access.
 
-- [ ] **Step 1: Compare only permitted mediated variants**
+- [x] **Step 1: Compare only permitted mediated variants**
 
 Evaluate a gateway-owned adapter that forwards committed events to a separately running memory-engine process, with bounded timeout, authentication, and queue behavior. Do not evaluate a client-visible `decision.propose` call, an authenticated agent that races the gateway, or a memory-engine connection to the gateway event-log database.
 
-- [ ] **Step 2: Select the concrete private transport**
+- [x] **Step 2: Select the concrete private transport**
 
 Choose the simplest transport that the evidence supports and that keeps the gateway as the only facilitator owner. The selected interface must carry `roomId`, event ID, event type, timestamp, and the normalized event payload; it must return either an ingestion receipt or a typed failure. It must not add a method or field to `n2n.room.v1`.
 
-- [ ] **Step 3: Specify the non-blocking sequence**
+- [x] **Step 3: Specify the non-blocking sequence**
 
 Document and test this sequence:
 
@@ -386,27 +389,27 @@ Commit the selected transport record only after human approval. Do not execute n
 - Consumes: the selected private ingestion interface from Task 5 and committed events after gateway persistence.
 - Produces: graph ingestion receipts/errors; no client-visible RPC method, no direct event-log database connection, and no active decision mutation.
 
-- [ ] **Step 1: Write failing cross-process tests**
+- [x] **Step 1: Write failing cross-process tests**
 
 The integration tests must prove that a committed event reaches the memory engine only after persistence, carries one `roomId`, and can be acknowledged without changing the room’s active decisions. They must also simulate an unavailable/slow/malformed memory engine and assert the gateway still completes chat, preserves the live `Decision:` behavior, and permits human transitions.
 
-- [ ] **Step 2: Run the tests before adding composition**
+- [x] **Step 2: Run the tests before adding composition**
 
 Run: `cargo test --test memory_engine_integration_test` in the gateway and `cargo test --test ingestion_test` in the memory engine.
 
 Expected: FAIL because the private client, ingestion endpoint/adapter, and test process are absent.
 
-- [ ] **Step 3: Implement the bounded mediated path**
+- [x] **Step 3: Implement the bounded mediated path**
 
 Add a gateway-owned post-commit dispatcher that forwards only normalized committed events. Use a bounded queue and timeout. Keep proposal persistence in the existing gateway facilitator/persistence path. Configure separate memory-engine storage credentials if required; never pass `DATABASE_URL` or gateway event-log credentials to the memory engine.
 
 The memory engine must reject missing/cross-room provenance and return typed failures. Its logs may contain safe room/event identifiers and error codes, but not access tokens, raw room text, titles, or summaries.
 
-- [ ] **Step 4: Add phase-gated local composition**
+- [x] **Step 4: Add phase-gated local composition**
 
 Add the memory-engine service to Compose or Kubernetes manifests only now, because this phase has an executable mediated-ingestion test that requires it. Use an explicit development-only memory store/configuration, no gateway event-log credentials, and no production topology claims. Do not add the service in earlier platform tasks.
 
-- [ ] **Step 5: Run the phase tests and verify the boundary**
+- [x] **Step 5: Run the phase tests and verify the boundary**
 
 Run:
 
@@ -444,23 +447,23 @@ Commit memory-engine ingestion, gateway mediation, and platform composition in i
 - Consumes: graph/provenance output and the private mediated event path from Phases 2–3.
 - Produces: `Vec<DraftProposal>` through the existing gateway facilitator port only.
 
-- [ ] **Step 1: Write failing port tests**
+- [x] **Step 1: Write failing port tests**
 
 Tests must assert that a memory-derived candidate returns a draft carrying the same `roomId` and source event IDs, that a candidate with cross-room provenance is rejected, that no candidate can call `decision.transition`, and that the gateway records any accepted result as `decision.proposed` with draft status.
 
 Include a structural test or source-level assertion that the memory adapter does not expose a client-visible `decision.propose` handler and that the gateway has one facilitator dispatch point.
 
-- [ ] **Step 2: Run the focused tests**
+- [x] **Step 2: Run the focused tests**
 
 Run: `cargo test --test facilitator_port_test`
 
 Expected: FAIL until the memory-engine adapter and gateway-side validation are present.
 
-- [ ] **Step 3: Implement the adapter without activating it yet**
+- [x] **Step 3: Implement the adapter without activating it yet**
 
 Implement `RoomMemoryPort::propose` behind the existing facilitator boundary. It may return zero or more validated draft candidates, but it must not persist gateway events, transition decisions, or write active context. Keep the deterministic `Decision:` implementation as the configured active provider while this adapter is tested.
 
-- [ ] **Step 4: Run focused tests and the retained live-parser regression**
+- [x] **Step 4: Run focused tests and the retained live-parser regression**
 
 Run:
 
@@ -472,9 +475,11 @@ cargo test --test facilitator_test --test facilitator_port_test
 
 Expected: PASS; the live parser still produces drafts, and the memory adapter is proven to use the same port without being a second active proposer.
 
-- [ ] **Step 5: Future commit checkpoint**
+- [x] **Step 5: Future commit checkpoint**
 
-Commit the inactive adapter and validation tests only after human approval. Do not execute now.
+Commit the inactive adapter and validation tests only after human approval.
+Executed after approval in `thought-khoral-memory-engine` commit `0585b21` and
+`thought-khoral-room-gateway` commit `233d535`.
 
 ### Task 8: Explicitly switch the active facilitator implementation
 
