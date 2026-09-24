@@ -11,8 +11,11 @@ Approved
 - Compatibility: retained [`n2n.room.v1`](https://github.com/thoughtkhoral/thought-khoral-contracts/blob/main/protocol.md)
 - Identity: [../decisions/002-thoughtkhoral-identity.md](../decisions/002-thoughtkhoral-identity.md)
 
-This How records design constraints for the POC. It is not an implementation
-plan and does not authorize runtime code, dependency adoption, or deployment.
+This How records design constraints for the POC. It is not itself an
+implementation plan. The separately approved
+[task-gated plan](poc-room-scoped-memory-implementation-plan.md) authorizes the
+current graph and private-ingestion proof, not Cognee adoption or production
+deployment.
 
 ## Components and responsibilities
 

@@ -1,6 +1,9 @@
 # ThoughtKhoral memory engine specifications
 
-Parent requirements in the ThoughtKhoral root `.ai/specs/` apply here. This independently versioned repository is specification-only until a later approved implementation plan authorizes runtime code.
+Parent requirements in the ThoughtKhoral root `.ai/specs/` apply here. The
+approved, task-gated POC implementation plan authorizes the incubating
+room-scoped graph and private ingestion proof described in the README. Cognee
+integration, durable storage, and production deployment remain deferred.
 
 See the [root specification index](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/README.md).
 
@@ -16,7 +19,7 @@ See the [root specification index](https://github.com/thoughtkhoral/thought-khor
 
 - [How: POC room-scoped memory](how/poc-room-scoped-memory.md)
 - [How: POC room-scoped memory implementation plan — Approved](how/poc-room-scoped-memory-implementation-plan.md)
-- [How: specification-only boundary](how/specification-only.md)
+- [How: historical specification-only boundary](how/specification-only.md)
 
 ### decisions
 

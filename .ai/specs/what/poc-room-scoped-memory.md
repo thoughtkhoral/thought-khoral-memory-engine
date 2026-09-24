@@ -19,7 +19,10 @@ supplies supporting shared context without becoming authoritative by itself.
 `thought-khoral-memory-engine` owns room-scoped graph derivation, provenance,
 temporal lineage, and a later implementation of the gateway facilitator port.
 This What specifies product outcomes for a POC integration of Cognee-RS. It
-does not authorize runtime code.
+does not authorize runtime code by itself. The approved, task-gated
+[implementation plan](../how/poc-room-scoped-memory-implementation-plan.md)
+permits the current graph and private-ingestion proof; it does not authorize
+Cognee integration or production deployment.
 
 The capability must:
 

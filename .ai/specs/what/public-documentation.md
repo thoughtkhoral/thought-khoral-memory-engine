@@ -6,15 +6,14 @@ Approved
 
 ## Purpose
 
-Help users understand the planned collective-memory boundary while preventing
-the specification-only repository from being mistaken for an implemented
-runtime service.
+Help users distinguish the implemented room-scoped graph/ingestion proof from
+the planned Cognee-backed and production memory capabilities.
 
 ## Acceptance criteria
 
-- The README clearly states specification-only status and the absence of runtime
-  installation commands.
+- The README states the current incubating proof and its verification path,
+  without presenting it as a Cognee integration or production service.
 - The README links the POC room-scoped memory specification, compatibility
   boundary, local specifications, and root project map.
-- Any future implementation adds a new approved specification and updates the
-  lifecycle status before publishing runtime instructions.
+- Future Cognee, durable storage, or production instructions require their
+  own approved scope and a corresponding lifecycle-status update.

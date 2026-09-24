@@ -1,8 +1,9 @@
 # ThoughtKhoral memory engine
 
-`thought-khoral-memory-engine` is the specification home for collective-memory,
-provenance, and temporal lineage. The first planned capability is room-scoped
-POC memory: a room remains one conversation, and Cognee is a later
+`thought-khoral-memory-engine` is the incubating implementation and
+specification home for collective-memory, provenance, and temporal lineage.
+The first planned capability is room-scoped POC memory: a room remains one
+conversation, and Cognee is a later
 implementation of the gateway facilitator port rather than a second proposer.
 
 ## Status
@@ -11,6 +12,11 @@ Phase 3 mediated-ingestion proof / incubating. This repository contains the
 backend-neutral in-memory graph, provenance, context model, and a private
 authenticated HTTP ingestion process. It has no Cognee integration, durable
 storage, or production deployment procedure.
+
+Run `cargo fmt --check` and `cargo test` to verify this proof. The
+[POC verification record](docs/poc-verification.md) and private
+[mediated-ingestion design](docs/mediated-ingestion.md) describe its evidence
+and trust boundary; it is not a public room-protocol or production API.
 
 Read the [local specification index](.ai/specs/README.md), the
 [POC room-scoped memory specification](.ai/specs/what/poc-room-scoped-memory.md),

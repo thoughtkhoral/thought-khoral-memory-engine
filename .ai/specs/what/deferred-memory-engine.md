@@ -19,6 +19,8 @@ separate migration decision is accepted.
 
 ## Explicit exclusions
 
-Runtime code, packages, binaries, database schemas, migrations, deployment
-artifacts, and service integrations remain unauthorized until an
-implementation plan is approved.
+This historical placeholder did not authorize runtime code, packages,
+binaries, database schemas, migrations, deployment artifacts, or service
+integrations. The later approved POC implementation plan authorizes only its
+task-gated graph and mediated-ingestion proof; Cognee and production scope
+remain deferred.
