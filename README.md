@@ -13,6 +13,11 @@ backend-neutral in-memory graph, provenance, context model, and a private
 authenticated HTTP ingestion process. It has no Cognee integration, durable
 storage, or production deployment procedure.
 
+The private ingestion endpoint accepts gateway-mediated committed room events;
+it is not a retained-v1 browser protocol implementation, a direct gateway
+database consumer, or an active decision authority. A later facilitator
+integration requires its own approved plan and contract review.
+
 Run `cargo fmt --check` and `cargo test` to verify this proof. The
 [POC verification record](docs/poc-verification.md) and private
 [mediated-ingestion design](docs/mediated-ingestion.md) describe its evidence
