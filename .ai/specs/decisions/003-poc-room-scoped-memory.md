@@ -7,6 +7,8 @@ Accepted
 ## Context
 
 Root [decision 005](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/decisions/005-room-scoped-poc-memory.md) scopes the first Cognee capability to one room as one conversation and excludes project/topic memory. This repository previously recorded only a specification-only placeholder.
+Root [decision 008](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/decisions/008-slash-decisions-and-facilitator-boundary.md)
+later superseded only decision 005's live `Decision:` parser requirement.
 
 ## Decision
 
@@ -19,7 +21,8 @@ implementation plan is approved.
 The `n2n.room.v1` wire value, database identifiers, and persisted values remain
 unchanged. The facilitator is the draft-proposal port. Cognee occupies that
 port as a later implementation and must not invoke `decision.transition` or sit
-beside `Decision:` as a second independent proposer.
+beside another derived-draft implementation as a second independent proposer.
+The retired `Decision:` parser must not be restored as part of this POC.
 
 ## Alternatives considered
 

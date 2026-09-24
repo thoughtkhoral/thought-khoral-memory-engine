@@ -1,5 +1,12 @@
 # POC Room-Scoped Memory Implementation Plan
 
+> Superseded in part by root [Decision 008](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/decisions/008-slash-decisions-and-facilitator-boundary.md):
+> this historical plan's requirements to keep or later switch the live
+> `Decision:` parser no longer apply. Do not execute those steps verbatim;
+> replan any future facilitator activation from a gateway with no automatic
+> prefix proposer. Room partitioning, provenance, and human authority remain
+> unchanged.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add a proven, room-scoped shared-context capability in which human-approved active decisions are the conversation’s normative specifications and derived graph/retrieval memory supplies supporting context, without changing the governed-room MVP, the `n2n.room.v1` contract, or the human activation boundary.

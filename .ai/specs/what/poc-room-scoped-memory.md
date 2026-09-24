@@ -9,7 +9,8 @@ Approved
 Define the first Cognee-backed collective-memory capability for ThoughtKhoral
 without changing the governed-room MVP. A room remains one conversation.
 Derived facts and draft decisions are scoped to that room. Humans continue to
-activate context through Confirm, Edit, or Dismiss.
+activate context through Confirm, Edit, or Dismiss; a human may also delete a
+current decision while its audit event remains immutable.
 Decisions made in the room are conversation-scoped specifications: an active
 human-approved decision is the normative source of truth, while derived memory
 supplies supporting shared context without becoming authoritative by itself.
@@ -37,21 +38,25 @@ The capability must:
   decision specification.
 - Occupy the facilitator draft-proposal port rather than sit beside it or
   replace the port.
-- Leave the live `Decision:` implementation in place until an approved
-  implementation plan switches or adds a memory-engine implementation.
+- Do not restore the retired `Decision:` prefix parser. An approved later
+  plan must activate any memory-engine implementation behind the existing
+  gateway facilitator port.
 - Emit drafts, if any, only as facilitator-port proposals that the gateway
   records as `decision.proposed`.
 - Leave `decision.transition` and active collective memory to the gateway and
   human participants.
 
-Governing documents: root [solution architecture](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/what/n2n-solution-architecture.md) and [decision 005](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/decisions/005-room-scoped-poc-memory.md).
+Governing documents: root [solution architecture](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/what/n2n-solution-architecture.md),
+[decision 005](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/decisions/005-room-scoped-poc-memory.md),
+and its limited parser supersession in
+[decision 008](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/decisions/008-slash-decisions-and-facilitator-boundary.md).
 
 ## Exclusions
 
 - Project-level memory, topic-level memory, nested conversations, and any
   conversation or parent-project identifier.
-- Deleting the facilitator port or replacing the live `Decision:`
-  implementation before Cognee is proven.
+- Deleting the facilitator port, restoring the retired `Decision:` parser,
+  or activating a Cognee implementation before its separate approval.
 - A second independent propose path that bypasses the facilitator port.
 - Invoking `decision.transition`, writing active room context, or bypassing
   human Confirm / Edit / Dismiss.
@@ -74,9 +79,9 @@ Governing documents: root [solution architecture](https://github.com/thoughtkhor
    a conversation identifier.
 2. Project/topic memory hierarchy is documented as an explicit non-goal of this
    capability.
-3. The facilitator remains the only draft-creation path from room events, and
-   the live `Decision:` implementation still produces drafts from matching chat
-   messages until a later plan switches implementations.
+3. The facilitator remains the only path for drafts derived from room events.
+   The retired `Decision:` parser produces no drafts; a later approved plan
+   must activate a memory-engine implementation behind the same port.
 4. A Cognee-derived draft, when authorized, enters through the facilitator port
    and remains `draft` until a human Confirm, Edit, or Dismiss.
 5. Collective memory continues to show only gateway-active decisions.
@@ -84,5 +89,5 @@ Governing documents: root [solution architecture](https://github.com/thoughtkhor
    retrieval context remains supporting and non-authoritative.
 7. Human and agent context projections are room-scoped, and agent projections
    are read-only without adding a new `n2n.room.v1` method or field.
-8. No runtime implementation exists until an implementation plan for this What
-   and How is approved.
+8. The approved graph and private-ingestion proof does not activate Cognee or
+   a memory-derived draft proposer; those require a later approved plan.
