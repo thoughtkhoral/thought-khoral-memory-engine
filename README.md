@@ -13,6 +13,8 @@ backend-neutral in-memory graph, provenance, context model, and a private
 authenticated HTTP ingestion process. It has no Cognee integration, durable
 storage, or production deployment procedure.
 
+The shared [Codex conversation status guide](https://github.com/thoughtkhoral/thought-khoral/blob/main/docs/codex-conversation-status.md) treats this repository as a separate, incubating memory lane; Codex memory integration is not part of milestone one.
+
 The private ingestion endpoint accepts gateway-mediated committed room events;
 it is not a retained-v1 browser protocol implementation, a direct gateway
 database consumer, or an active decision authority. A later facilitator
