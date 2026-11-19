@@ -3,7 +3,11 @@
 Parent requirements in the ThoughtKhoral root `.ai/specs/` apply here. The
 approved, task-gated POC implementation plan authorizes the incubating
 room-scoped graph and private ingestion proof described in the README. Cognee
-integration, durable storage, and production deployment remain deferred.
+integration, durable storage, and production deployment remain deferred. The
+inactive draft adapter supplies validation evidence, not an active proposer.
+Root Decision 008 retires the `Decision:` prefix parser; the plan and POC
+verification record retain their former parser baseline only as labeled
+historical evidence.
 
 See the [root specification index](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/README.md).
 

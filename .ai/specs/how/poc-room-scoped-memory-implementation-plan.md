@@ -19,6 +19,53 @@
 
 **Spec:** `../what/poc-room-scoped-memory.md`; `poc-room-scoped-memory.md`; root `.ai/specs/decisions/005-room-scoped-poc-memory.md`; root `.ai/specs/what/n2n-solution-architecture.md`; `thought-khoral-room-gateway/.ai/specs/what/mvp-room.md`; `thought-khoral-room-gateway/.ai/specs/how/implementation.md`
 
+## Current implementation checkpoint — 2026-11-19
+
+This is an approved historical execution plan with task evidence, not a fresh
+verification result. The graph/provenance/context proof, deterministic graph-only
+extraction, private mediated ingestion, and inactive draft-validation adapter
+are implemented. Cognee remains unpinned (`Cannot adopt yet`); the optional
+provider switch was not executed. Durable storage and production deployment
+remain deferred. The [verification record](../../../docs/poc-verification.md)
+preserves the earlier commands and outcomes without claiming they were rerun.
+
+Root Decision 008 and the current local What/How govern the present baseline:
+the `Decision:` prefix parser is retired and no automatic prefix or memory
+proposer is active. All checked steps and parser assertions below retain their
+original historical meaning. They do not authorize restoring that parser or
+executing Task 8 verbatim. Future facilitator activation needs a separately
+approved plan against the current boundary.
+
+### Known implementation limits — unclosed proof requirements
+
+Source inspection for this checkpoint records these limits of the existing proof:
+
+- [The fixture extractor](../../../src/extractor.rs) requires
+  `payload.extraction`; ordinary committed chat without fixture output fails
+  extraction. This is deterministic fixture behavior, not live semantic
+  extraction or evidence of Cognee adoption (Tasks 1–4).
+- [The graph](../../../src/graph.rs) rejects duplicate event IDs before writes.
+  That error flows through extraction to the
+  [HTTP handler](../../../src/ingestion.rs) as `malformed_request`, rather than
+  acknowledging the earlier successful ingestion or returning a dedicated
+  duplicate code. Axum JSON/body rejections occur before that handler and do
+  not share its typed JSON error envelope. Broader replay/response proof for
+  Tasks 5–6 remains unclosed.
+- The gateway-owned
+  [dispatcher](https://github.com/thoughtkhoral/thought-khoral-room-gateway/blob/main/src/memory_engine_client.rs)
+  makes one bounded attempt, accepts an HTTP success status without validating
+  the receipt body, and implements no retry. Only elapsed timeouts are logged
+  by its worker; other send failures are dropped. Receipt validation and the
+  broader failure-diagnostic/replay evidence described for Tasks 5–6 are not
+  established by the historical checked steps.
+
+These observations do not waive normative requirements, approve the observed
+limits as final behavior, or authorize runtime changes. Future work must follow
+the applicable approved task and source-of-truth workflow; no provider, retry
+policy, or dependency is newly authorized here. The maintained
+[ingestion description](../../../docs/mediated-ingestion.md) derives its current
+proof-limit statements from this checkpoint. No runtime suites were rerun.
+
 ## Global Constraints
 
 - A room remains one conversation. Every derived fact, embedding, edge, lineage record, and draft candidate is partitioned by `roomId`.

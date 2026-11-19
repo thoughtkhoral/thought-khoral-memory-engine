@@ -15,8 +15,11 @@ later superseded only decision 005's live `Decision:` parser requirement.
 This project implements root decision 005 locally. The authoritative What is
 [POC room-scoped memory](../what/poc-room-scoped-memory.md). The placeholder
 [deferred memory engine](../what/deferred-memory-engine.md) document is
-superseded. Runtime code remains unauthorized until a dedicated
-implementation plan is approved.
+superseded. This decision originally required a dedicated approved
+implementation plan before runtime work. The later approved
+[task-gated plan](../how/poc-room-scoped-memory-implementation-plan.md) now
+authorizes the incubating graph and private ingestion proof; Cognee adoption
+and production deployment remain deferred.
 
 The `n2n.room.v1` wire value, database identifiers, and persisted values remain
 unchanged. The facilitator is the draft-proposal port. Cognee occupies that
