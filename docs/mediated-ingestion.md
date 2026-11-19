@@ -1,9 +1,21 @@
 # Mediated committed-event ingestion
 
+## Status and sources
+
+Maintained description of the incubating Phase 3 proof, derived from the approved
+[What](../.ai/specs/what/poc-room-scoped-memory.md),
+[How](../.ai/specs/how/poc-room-scoped-memory.md), and
+[implementation plan](../.ai/specs/how/poc-room-scoped-memory-implementation-plan.md).
+Root [Decision 008](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/decisions/008-slash-decisions-and-facilitator-boundary.md)
+supersedes the plan's former live-parser baseline: `Decision:` text is ordinary
+chat, and no automatic prefix or memory-derived proposer is active. The inactive
+draft adapter does not activate a provider. The earlier execution evidence is
+preserved in the [historical POC verification record](poc-verification.md).
+
 ## Decision
 
-The memory engine will receive committed room events through a private HTTP
-endpoint owned by the memory-engine process. The gateway will use a
+The memory engine receives committed room events through a private HTTP
+endpoint owned by the memory-engine process. The gateway uses a
 gateway-owned post-commit dispatcher to send a JSON `CommittedRoomEvent`
 envelope to `POST /internal/v1/ingest` over the private service network.
 
@@ -31,7 +43,7 @@ reject requests that are unauthenticated, malformed, or missing a room scope.
 | Authenticated agent racing the gateway facilitator | Rejected | Creates competing proposal authors and makes deterministic facilitator ownership ambiguous. |
 | Memory engine reading the gateway event-log database | Rejected | Violates the process and credential boundary, couples the engine to gateway persistence, and prevents an independently testable ingestion failure path. |
 
-## Internal envelope
+## Designed internal envelope
 
 The request body contains exactly one normalized committed event:
 
@@ -45,9 +57,8 @@ The request body contains exactly one normalized committed event:
 }
 ```
 
-The implementation may use the Rust field names internally, but the wire
-mapping must remain explicit and versioned as an internal interface. The
-memory engine validates that:
+The implementation uses Rust field names internally and camelCase fields at
+the HTTP boundary. The approved design requires:
 
 - `roomId` is present and is the sole partition scope for the operation;
 - `eventId`, `eventType`, `occurredAt`, and `payload` are present and valid;
@@ -57,17 +68,44 @@ memory engine validates that:
 - no request can provide a second room scope or source an event from another
   room.
 
-The response is one of:
+The success response is:
 
 ```json
 {"status":"accepted","roomId":"<UUID>","eventId":"<UUID>"}
 ```
 
-or a typed error with a stable safe code, for example
-`unauthorized`, `malformed_request`, `scope_mismatch`, `duplicate_event`, or
-`backend_unavailable`. Responses and logs contain only safe room/event IDs and
-error codes. Raw room text, titles, summaries, access tokens, and database
-credentials are not logged.
+The current handler returns `unauthorized`, `scope_mismatch`,
+`malformed_request`, or `graph_rejected` for service-level errors. Axum rejects
+invalid JSON, missing required fields, or oversized bodies before the handler;
+those framework responses do not use the same JSON error envelope. Safe error
+codes are the design boundary; raw room text, titles, summaries, access tokens,
+and database credentials must not be logged.
+
+## Current proof limits
+
+These limits derive from the owning plan's
+[current implementation checkpoint](../.ai/specs/how/poc-room-scoped-memory-implementation-plan.md#known-implementation-limits--unclosed-proof-requirements).
+They remain unclosed proof requirements; the checkpoint does not waive the
+approved design or authorize runtime changes.
+
+The running proof uses `DeterministicFixtureExtractor`: `payload.extraction`
+contains fixture output. The empty `payload` above illustrates envelope shape,
+not a successful extraction request. Ordinary committed chat without fixture
+output returns an extraction failure; this is not live semantic extraction.
+The graph is in memory and disappears on process restart.
+
+Duplicate event IDs are rejected before applying graph writes, rather than
+acknowledged as an earlier successful ingestion. The rejection currently maps
+through the extraction error to `malformed_request`; there is no dedicated
+`duplicate_event` HTTP response. The gateway worker makes one bounded send
+attempt and checks HTTP success status; it does not validate the receipt body
+or implement retries. These observations describe the existing proof and do
+not close the design's broader response/replay evidence requirements.
+
+Sources for this scope are [ingestion](../src/ingestion.rs),
+[extractor](../src/extractor.rs), [graph](../src/graph.rs), and the gateway-owned
+[dispatcher](https://github.com/thoughtkhoral/thought-khoral-room-gateway/blob/main/src/memory_engine_client.rs).
+No runtime checks were rerun for this documentation reconciliation.
 
 ## Non-blocking sequence
 
@@ -84,11 +122,11 @@ gateway validates and commits room event
 
 The room-event transaction and the chat response do not await extraction or a
 successful memory-engine response. A full queue, connection failure, timeout,
-HTTP error, malformed response, or memory-engine outage produces a safe
-diagnostic and drops or retries the derived-memory job according to the later
-bounded retry policy; it never rejects the already committed chat event. The
-existing deterministic `Decision:` facilitator remains available in the
-gateway throughout this phase.
+HTTP error, malformed response, or memory-engine outage must not reject the
+already committed chat event. The design requires safe diagnostics; the current
+worker logs elapsed timeouts and drops failed jobs without retry. Human
+`/decisions` actions and decision transitions remain governed by the gateway;
+the retired `Decision:` parser is not a fallback.
 
 The dispatcher must be shut down with the gateway and must not outlive the
 request/runtime that owns it. It must not retry indefinitely, replay an event
@@ -99,18 +137,23 @@ decision transition.
 
 The gateway sets the private endpoint and shared secret through separate
 configuration values. The memory engine does not receive `DATABASE_URL` or any
-gateway event-log credential. The endpoint binds only to the private service
-interface, rejects requests without the configured credential, and applies a
-request body limit before deserialization.
+gateway event-log credential. Private exposure is a deployment boundary: the binary defaults to
+`0.0.0.0:43121`, configurable with `THOUGHT_KHORAL_MEMORY_LISTEN_ADDRESS`.
+`THOUGHT_KHORAL_MEMORY_SHARED_SECRET` supplies the credential sent as
+`Authorization: Bearer <secret>`. The handler rejects requests without that
+credential and uses Axum's default JSON body limit. This proof provides no
+production TLS or deployment procedure.
 
 The integration test must prove that an authenticated request can be accepted
 without changing active decisions, while an unauthenticated request, a
 cross-room provenance request, and a malformed request are rejected before any
 graph write. Test fixtures must use non-sensitive text and identifiers.
 
-## Task 6 interface and sequence test plan
+## Task 6 interface and sequence test plan (implementation checklist)
 
-Before adding runtime composition, write failing tests for:
+The approved Task 6 plan established these tests before runtime composition.
+The checklist describes that proof boundary; current runtime evidence is not
+regenerated by this documentation update. It covers:
 
 1. an authenticated committed event reaching the memory engine only after the
    gateway persistence step;
@@ -119,12 +162,13 @@ Before adding runtime composition, write failing tests for:
 3. an ingestion receipt acknowledging derived graph work without creating an
    active decision or invoking `decision.transition`;
 4. an unavailable, slow, malformed, or queue-saturated memory engine leaving
-   chat completion and the deterministic gateway facilitator unaffected;
+   chat completion and governed human decision actions unaffected;
 5. rejection of missing/cross-room provenance without partial graph writes;
 6. absence of the gateway event-log database credential from the memory-engine
    process configuration; and
 7. bounded shutdown and no unbounded retry/replay behavior.
 
-The test process may use an in-process HTTP server for the first contract
-tests. A separate memory-engine process and platform composition are added only
-in Task 6, when the cross-process failure-isolation test requires them.
+The initial contract tests use an in-process HTTP server. Task 6 added the
+separate memory-engine process and phase-gated platform composition for the
+cross-process failure-isolation proof. This does not authorize production
+deployment or a facilitator-provider switch.

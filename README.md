@@ -2,23 +2,28 @@
 
 `thought-khoral-memory-engine` is the incubating implementation and
 specification home for collective-memory, provenance, and temporal lineage.
-The first planned capability is room-scoped POC memory: a room remains one
-conversation, and Cognee is a later
-implementation of the gateway facilitator port rather than a second proposer.
+The first capability is an incubating room-scoped POC: a room remains one
+conversation, and Cognee is a later implementation of the gateway facilitator
+port.
 
 ## Status
 
 Phase 3 mediated-ingestion proof / incubating. This repository contains the
 backend-neutral in-memory graph, provenance, context model, and a private
-authenticated HTTP ingestion process. It has no Cognee integration, durable
-storage, or production deployment procedure.
+authenticated HTTP ingestion process. An inactive draft adapter validates
+room scope and provenance; it does not generate live proposals or activate
+decisions. There is no Cognee integration, durable storage, or production
+deployment procedure.
 
 The shared [Codex conversation status guide](https://github.com/thoughtkhoral/thought-khoral/blob/main/docs/codex-conversation-status.md) treats this repository as a separate, incubating memory lane; Codex memory integration is not part of milestone one.
 
 The private ingestion endpoint accepts gateway-mediated committed room events;
 it is not a retained-v1 browser protocol implementation, a direct gateway
-database consumer, or an active decision authority. A later facilitator
-integration requires its own approved plan and contract review.
+database consumer, or an active decision authority. The gateway
+`Decision:` prefix parser is retired under root
+[Decision 008](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/decisions/008-slash-decisions-and-facilitator-boundary.md);
+no automatic prefix or memory proposer is active. Activating a later facilitator
+implementation requires its own approved plan and contract review.
 
 Run `cargo fmt --check` and `cargo test` to verify this proof. The
 [POC verification record](docs/poc-verification.md) and private
@@ -35,3 +40,8 @@ Use an issue to propose scope, contracts, security boundaries, or evidence for
 an implementation plan. Further runtime work remains task-gated by that
 approved implementation plan. See the
 [organization contribution guide](https://github.com/thoughtkhoral/.github/blob/main/CONTRIBUTING.md).
+
+This README and the current ingestion description are maintained from the
+approved local What/How and root Decision 008. The verification record preserves
+the earlier POC checkpoint as historical evidence; it is not a current runtime
+verification claim.

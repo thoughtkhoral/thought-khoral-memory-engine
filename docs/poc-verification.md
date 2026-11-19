@@ -1,6 +1,26 @@
 # Room-scoped memory POC verification
 
-## Outcome
+## Current scope — documentation reconciliation 2026-11-19
+
+This record preserves the earlier POC execution evidence below. It has not been
+rerun during this documentation pass. Its references to a live `Decision:`
+parser and rollback to that parser describe the former baseline, superseded by
+root [Decision 008](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/decisions/008-slash-decisions-and-facilitator-boundary.md).
+The parser is retired; no automatic prefix or memory-derived proposer is active.
+Future facilitator activation requires a new approved plan against that boundary.
+
+The approved local [What](../.ai/specs/what/poc-room-scoped-memory.md),
+[How](../.ai/specs/how/poc-room-scoped-memory.md), and
+[task-gated plan](../.ai/specs/how/poc-room-scoped-memory-implementation-plan.md)
+authorize the incubating room-scoped graph and private ingestion proof. Local
+source inspection confirms the in-memory graph, deterministic fixture extractor,
+authenticated ingestion process, and inactive draft validation adapter. Cognee
+adoption, durable storage, and production deployment remain deferred. This
+source inspection establishes implementation scope, not fresh runtime evidence.
+Codex conversation milestone acceptance is tracked separately in the
+[shared status guide](https://github.com/thoughtkhoral/thought-khoral/blob/main/docs/codex-conversation-status.md).
+
+## Historical POC outcome
 
 The graph-only memory capability and mediated ingestion boundary are verified.
 The deterministic gateway `Decision:` facilitator remains the active provider.
@@ -8,7 +28,12 @@ The optional Phase 4 provider switch is deferred because Cognee-RS adoption is
 still recorded as `Cannot adopt yet`, and the memory engine has no proven
 proposal-generating implementation beyond the validated draft port adapter.
 
-## Evidence and revisions
+## Historical evidence and revisions
+
+Original verification record: memory-engine commit
+[`860389c`](https://github.com/thoughtkhoral/thought-khoral-memory-engine/commit/860389c)
+(2026-09-18), before the 2026-09-24 parser supersession. Current reconciliation
+was based on memory-engine HEAD `037526f` plus the approved local specifications.
 
 - Cognee evidence: `docs/dependency-evidence/cognee-rs.md`; result:
   `Cannot adopt yet`; no Cognee dependency is present in `Cargo.toml`.
@@ -19,7 +44,7 @@ proposal-generating implementation beyond the validated draft port adapter.
   transition, or activate a decision.
 - Contract: `n2n.room.v1` remains unchanged.
 
-## Release-gate commands and results
+## Historical release-gate commands and results
 
 ### Memory engine
 
@@ -66,7 +91,7 @@ bash scripts/validate-kube.sh
 Pass. Compose exposes the memory engine as a healthy private service, and the
 Kubernetes workload manifests were accepted by the local Podman validation.
 
-## Boundary and failure evidence
+## Historical boundary and failure evidence
 
 1. Every derived fact, graph node, edge, supporting-context item, and draft
    candidate carries one room scope and source-event provenance.
@@ -81,9 +106,13 @@ Kubernetes workload manifests were accepted by the local Podman validation.
 6. Duplicate request handling and the existing deterministic parser remain
    covered by gateway integration tests.
 
-## Rollback condition
+## Historical rollback condition — superseded parser baseline
 
 If a later memory-provider experiment fails room/provenance, failure-isolation,
 credential-separation, or human-activation checks, keep the deterministic
 `Decision:` provider active and remove only the explicit Phase 4 provider
 configuration. No contract migration or decision-ledger rollback is required.
+
+The historical commands, including the database URL, record the original test
+environment. They are not current deployment instructions or evidence that the
+present gateway, platform, or memory HEAD passed those suites.
