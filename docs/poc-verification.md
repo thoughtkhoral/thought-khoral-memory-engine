@@ -1,6 +1,20 @@
 # Room-scoped memory POC verification
 
-## Current scope — documentation reconciliation 2026-11-19
+## Current workspace context — 2026-11-20
+
+This component remains the incubating in-memory room/provenance and private mediated-ingestion proof at runtime baseline `7b46518`. The published contract and prepared Codex consumers/profile do not enable memory retrieval/writes, an active facilitator, Cognee or durable storage. Existing fixture/receipt/error-handling proof limits and human activation authority remain as specified. No new memory runtime test or implementation is claimed by this documentation refresh.
+
+Runtime source and contract pins are unchanged. Exact clean pinned-source
+snapshots were retained before this documentation-only checkout advanced.
+
+Derived from the [local specification index](../.ai/specs/README.md) and
+[root workspace authority](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/how/workspace-state.md).
+The cited tests retain their original source identities; this documentation
+refresh adds no activation, publication or runtime acceptance.
+
+<a id="current-scope--documentation-reconciliation-2026-11-19"></a>
+
+## Historical scope — documentation reconciliation 2026-11-19
 
 This record preserves the earlier POC execution evidence below. It has not been
 rerun during this documentation pass. Its references to a live `Decision:`
