@@ -1,5 +1,18 @@
 # POC Room-Scoped Memory Implementation Plan
 
+## Current workspace state — 2026-11-20
+
+This component remains the incubating in-memory room/provenance and private mediated-ingestion proof at runtime baseline `7b46518`. The published contract and prepared Codex consumers/profile do not enable memory retrieval/writes, an active facilitator, Cognee or durable storage. Existing fixture/receipt/error-handling proof limits and human activation authority remain as specified. No new memory runtime test or implementation is claimed by this documentation refresh.
+
+Runtime source and contract pins are unchanged. Exact clean pinned-source
+snapshots were retained before this documentation-only checkout advanced.
+
+See the [root workspace authority](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/how/workspace-state.md) for exact source/release
+identities, preserved source snapshots and remaining gates. Documentation-only
+HEADs are not substitutions for frozen acceptance commits. Earlier dated
+checkpoints retain their historical evidence; no runtime suite was rerun for
+this prose refresh.
+
 > Superseded in part by root [Decision 008](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/decisions/008-slash-decisions-and-facilitator-boundary.md):
 > this historical plan's requirements to keep or later switch the live
 > `Decision:` parser no longer apply. Do not execute those steps verbatim;
@@ -19,7 +32,9 @@
 
 **Spec:** `../what/poc-room-scoped-memory.md`; `poc-room-scoped-memory.md`; root `.ai/specs/decisions/005-room-scoped-poc-memory.md`; root `.ai/specs/what/n2n-solution-architecture.md`; `thought-khoral-room-gateway/.ai/specs/what/mvp-room.md`; `thought-khoral-room-gateway/.ai/specs/how/implementation.md`
 
-## Current implementation checkpoint — 2026-11-19
+<a id="current-implementation-checkpoint--2026-11-19"></a>
+
+## Historical implementation checkpoint — 2026-11-19
 
 This is an approved historical execution plan with task evidence, not a fresh
 verification result. The graph/provenance/context proof, deterministic graph-only

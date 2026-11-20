@@ -1,5 +1,18 @@
 # ThoughtKhoral memory engine specifications
 
+## Current workspace state — 2026-11-20
+
+This component remains the incubating in-memory room/provenance and private mediated-ingestion proof at runtime baseline `7b46518`. The published contract and prepared Codex consumers/profile do not enable memory retrieval/writes, an active facilitator, Cognee or durable storage. Existing fixture/receipt/error-handling proof limits and human activation authority remain as specified. No new memory runtime test or implementation is claimed by this documentation refresh.
+
+Runtime source and contract pins are unchanged. Exact clean pinned-source
+snapshots were retained before this documentation-only checkout advanced.
+
+See the [root workspace authority](https://github.com/thoughtkhoral/thought-khoral/blob/main/.ai/specs/how/workspace-state.md) for exact source/release
+identities, preserved source snapshots and remaining gates. Documentation-only
+HEADs are not substitutions for frozen acceptance commits. Earlier dated
+checkpoints retain their historical evidence; no runtime suite was rerun for
+this prose refresh.
+
 Parent requirements in the ThoughtKhoral root `.ai/specs/` apply here. The
 approved, task-gated POC implementation plan authorizes the incubating
 room-scoped graph and private ingestion proof described in the README. Cognee
