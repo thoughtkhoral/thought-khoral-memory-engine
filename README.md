@@ -1,5 +1,7 @@
 # ThoughtKhoral memory engine
 
+[Project documentation](docs/README.md) · [Documentation requirements](.ai/specs/what/public-documentation.md)
+
 ## Current workspace context — 2026-11-20
 
 This component remains the incubating in-memory room/provenance and private mediated-ingestion proof at runtime baseline `7b46518`. The published contract and prepared Codex consumers/profile do not enable memory retrieval/writes, an active facilitator, Cognee or durable storage. Existing fixture/receipt/error-handling proof limits and human activation authority remain as specified. No new memory runtime test or implementation is claimed by this documentation refresh.
